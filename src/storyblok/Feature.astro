@@ -1,8 +1,39 @@
 ---
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import { storyblokEditable } from '@storyblok/astro';
 const { blok } = Astro.props;
 ---
 
-<section class="feature" {...storyblokEditable(blok)}>
-	<p>{blok.name}</p>
-</section>
+<div class="feature" {...storyblokEditable(blok)}>
+	<h2>{blok.name}</h2>
+	{
+		blok.cta?.map((nestedBlok) => {
+			return <StoryblokComponent blok={nestedBlok} />;
+		})
+	}
+</div>
+
+<style>
+	.feature {
+		block-size: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 2rem;
+		background-color: var(--card-bg);
+		border: 2px solid var(--card-border);
+		border-radius: 24px;
+		text-align: center;
+	}
+
+	h2 {
+		color: var(--card-heading);
+		font-size: 1.25rem;
+	}
+
+	/* Keep buttons aligned along the bottom of cards in the same row */
+	h2:not(:last-child) {
+		margin-block-end: auto;
+	}
+</style>

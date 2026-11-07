@@ -34,6 +34,8 @@ export default defineConfig({
 				grid: 'storyblok/Grid',
 				feature: 'storyblok/Feature',
 				teaser: 'storyblok/Teaser',
+				banner: 'storyblok/Banner',
+				button: 'storyblok/Button',
 			},
 		}),
 	],
