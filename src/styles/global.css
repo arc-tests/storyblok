@@ -1,0 +1,181 @@
+@layer reset, base;
+
+@layer reset {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		line-height: 1.5;
+	}
+
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-inline-size: 100%;
+	}
+
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+		letter-spacing: inherit;
+		word-spacing: inherit;
+		color: currentColor;
+	}
+
+	:is(p, h1, h2, h3) {
+		overflow-wrap: break-word;
+	}
+}
+
+/*
+ * Palette: #2d5972 blue, #733e4a plum, #b25d62 rose, #e5926b orange,
+ * #f7d5b5 peach. Rose and orange are below 4.5:1 on light surfaces, so in
+ * the light theme they are only used for borders and rules, never text.
+ * Every text pairing below meets WCAG AA (4.5:1) or better.
+ */
+:root {
+	color-scheme: light dark;
+
+	--blue: #2d5972;
+	--plum: #733e4a;
+	--rose: #b25d62;
+	--orange: #e5926b;
+	--peach: #f7d5b5;
+
+	/* Shades derived from the palette for body text and dark surfaces */
+	--blue-ink: #1c3747;
+	--blue-night: #14232c;
+	--blue-dusk: #1b2f3b;
+	--plum-dark: #5c303b;
+	--cream: #fffaf5;
+
+	--surface: var(--cream);
+	--text: var(--blue-ink); /* 12:1 */
+	--heading: var(--blue); /* 7.3:1 */
+	--link: var(--blue);
+	--focus: var(--blue);
+	--rule: var(--rose);
+
+	--teaser-bg: var(--peach);
+	--teaser-text: var(--blue-ink); /* 9:1 */
+
+	--banner-bg: var(--blue);
+	--banner-heading: var(--peach); /* 5.4:1 */
+	--banner-text: var(--cream); /* 7.3:1 */
+	--banner-button-bg: var(--peach);
+	--banner-button-text: var(--blue-ink); /* 9:1 */
+	--banner-button-hover-bg: var(--cream);
+	--banner-focus: var(--peach);
+
+	--card-bg: #ffffff;
+	--card-border: var(--orange);
+	--card-heading: var(--plum); /* 8.3:1 */
+
+	--button-bg: var(--plum);
+	--button-text: #ffffff; /* 8.3:1 */
+	--button-hover-bg: var(--plum-dark); /* 10.8:1 */
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--surface: var(--blue-night);
+		--text: #fbeee2; /* 14:1 */
+		--heading: var(--orange); /* 6.6:1 */
+		--link: var(--orange);
+		--focus: var(--peach);
+
+		--teaser-bg: var(--blue);
+		--teaser-text: var(--cream); /* 7.3:1 */
+
+		--banner-bg: var(--plum);
+		--banner-heading: var(--peach); /* 6:1 */
+		--banner-text: #ffffff; /* 8.3:1 */
+		--banner-button-text: var(--blue-night); /* 11.6:1 */
+
+		--card-bg: var(--blue-dusk); /* text 12:1 */
+		--card-border: var(--rose);
+		--card-heading: var(--orange); /* 5.7:1 */
+
+		--button-bg: var(--orange);
+		--button-text: var(--blue-night); /* 6.6:1 */
+		--button-hover-bg: var(--peach); /* 11.6:1 */
+	}
+}
+
+@layer base {
+	html {
+		block-size: 100%;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
+
+	body {
+		font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+		max-inline-size: 65rem;
+		min-block-size: 100dvh;
+		margin: 0 auto;
+		padding: 1rem;
+		color: var(--text);
+		background-color: var(--surface);
+		font-size: clamp(1rem, -0.5vw + 1.3rem, 1.2rem);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-wrap: pretty;
+	}
+
+	main {
+		display: grid;
+		gap: 2rem;
+		padding: max(2vh, 1rem) min(2vw, 2rem);
+	}
+
+	:is(h1, h2, h3) {
+		color: var(--heading);
+		line-height: 1.2;
+		text-wrap: balance;
+		letter-spacing: -0.05ch;
+	}
+
+	a {
+		color: var(--link);
+		text-underline-offset: 0.2em;
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--focus);
+		outline-offset: 3px;
+	}
+
+	footer {
+		border-block-start: 1px solid var(--rule);
+		text-align: center;
+		padding: max(2vh, 1rem) min(2vw, 2rem);
+		margin: max(2vh, 5rem) min(2vw, 3rem);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+}
