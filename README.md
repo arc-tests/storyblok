@@ -51,6 +51,83 @@ Roughly 2 hours of focused work, with some interruptions. Creating a separate Gi
 
 Built from [Storyblok's official Quickstart using Astro](https://www.storyblok.com/technologies).
 
+---
+
+## Tutorial: Add a block to your Astro site with an AI assistant and Storyblok's MCP
+
+This walkthrough takes you from nothing to an Astro site with a new, nested block, built by prompting an AI assistant connected to Storyblok's MCP server.
+
+### Before you start
+
+- A Storyblok account. Signing up first means you only have to log in when prompted later. You don't need to create a space at this point as the CLI creates one for you in step 1.
+- Node.js 22.23.4 or newer.
+- An editor or assistant that supports MCP. I used VS Code with the Claude Code extension.
+
+### 1. Create the project
+
+In the folder of your choice, install Storyblok's CLI, log in and create the project:
+
+```sh
+npm install -g storyblok
+storyblok login
+storyblok create
+```
+
+If you skip `storyblok login`, `create` will offer you to log you in there and then.
+
+Choose Astro, then a path for your project. The CLI scaffolds the project, creates a space for it, fills in your `.env` and preview URL, and opens your new space in the browser. It then shows the next steps: `cd` into your project folder, `npm install` and `npm run dev`. The first run may ask for your computer's password: it's creating a local HTTPS certificate, which the Visual Editor needs.
+
+At `https://localhost:4321` you should see a heading and three cards.
+
+### 2. Connect your assistant to the MCP
+
+Paste the quickstart prompt from Storyblok's MCP docs into your assistant:
+
+> Fetch https://www.storyblok.com/docs/tooling/mcp-server/setup.md and follow the setup instructions for this client.
+
+Once it confirms the server was added:
+
+1. Reload your editor or start a new session, so the assistant picks up the new server.
+2. Run `/mcp` and select Storyblok.
+3. Sign in to Storyblok in the browser window that opens. On the same screen, choose the space the CLI created and grant permissions. For a simple demo you can tick them all. For real projects, review them.
+
+### 3. Create a block
+
+> Create a new banner block that has an `<h2>`, allows a short paragraph and a call to action button which allows a custom label and url.
+
+The assistant looks at how the starter's blocks are set up, reads Storyblok's agent skills (the starter's `AGENTS.md` points it there), creates the block in your space and writes a matching `Banner.astro` component.
+
+In your space's **Block Library**, on Storyblok's UI in your browser, open the banner. You'll see a headline, text, and a link and link label, all on the same level.
+
+You won't see the banner on your site yet, and that's the key idea: the block's definition lives in Storyblok, its Astro component lives in your code, and nothing renders until a **story** (Storyblok's word for a page) uses it.
+
+### 4. Nest a block
+
+> Make the CTA its own button block so that it is nestable.
+
+The assistant describes what it's about to do, creates a `button` block, and swaps the banner's two link fields for one field that only accepts a button. It first checks whether any story uses the banner, so no content is lost. None does yet.
+
+Refresh the Block Library in your browser. The banner now holds a button, which is block nested inside.
+
+### 5. Put it on a page
+
+First, I gave the starter's three cards (feature blocks) a button each:
+
+> Update the features in the homepage to each use the new CTA button.
+
+Each `button` needs a link, and Home was the only page, so the assistant stopped and asked: create stub pages, use placeholder URLs, or take labels and URLs from me? I chose stub pages, and it created three drafts and linked each card's button to one.
+
+Then I filled those pages:
+
+> Create sample content for the three new pages just created and add to each a banner and a feature with realistic sample content.
+
+Open a new page locally: the banner renders, nested button included.
+
+### 6. Edit it in the Visual Editor
+
+Open the page in Storyblok, change some text and press **Save**. The preview updates once you save, not as you type.
+
+
 
 
 
