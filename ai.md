@@ -1,6 +1,6 @@
 # How I used AI
 
-Tools: Claude Code in VS Code, connected to Storyblok's MCP server.
+Tools: Claude Code in VS Code, connected to Storyblok's MCP server. I also used Claude chat, particularly speech to text to capture working notes, rubber ducking and points of confusion. 
 
 To connect the MCP, I used the quickstart prompt from Storyblok’s docs, adding ‘Connect to the following Storyblok MCP:’ at the start.
 
@@ -15,7 +15,7 @@ To connect the MCP, I used the quickstart prompt from Storyblok’s docs, adding
 It read AGENTS.md and went to read Storyblok’s agent skills on GitHub. It didn’t install the plugin. It then listed the space’s existing blocks, created a `banner` block with `headline`, `text`, `cta_label` and `cta_link` fields, wrote `Banner.astro` and registered it in `astro.config.mjs`.
 
 **What I checked:** 
-I signed-in on the Storyblok web app and saw the banner in the Block Library. I noticed the CTA was two flat fields rather than a nested block, so my next prompt made it its own button block.
+I signed in on the Storyblok web app and saw the banner in the Block Library. I noticed the CTA was two flat fields rather than a nested block, so my next prompt made it its own button block.
 
 **Verdict:** 
 This was my first prompt using the MCP. It changed my Storyblok space without showing me a plan first. Storyblok’s agent skill describes presenting a plan before any changes. Whether a direct request like mine should count as approval is a question I’d like to discuss.
@@ -26,7 +26,7 @@ This was my first prompt using the MCP. It changed my Storyblok space without sh
 > Update the features in the homepage to each use the new CTA button.
 
 **What it did:** 
-It added a cta field to the `feature` block and updated `Feature.astro` to render it. Each button needs a `label` and a `link`, and `Home` was the only page, so it stopped and asked me to choose: create stub pages, use placeholder URLs, or give it labels and URLs myself. I chose stub pages. It created three draft pages, re-read `Home` to make sure nothing had changed, then linked each feature’s button to its page.
+It added a `cta field` to the `feature` block and updated `Feature.astro` to render it. Each button needs a `label` and a `link`, and `Home` was the only page, so it stopped and asked me to choose: create stub pages, use placeholder URLs, or give it labels and URLs myself. I chose stub pages. It created three draft pages, re-read `Home` to make sure nothing had changed, then linked each feature’s button to its page.
 
 **What I checked:** 
 I clicked each button on the homepage and checked the three pages loaded. In Storyblok I saw the three new draft stories.
@@ -49,8 +49,7 @@ It also made changes to the HTML. For example, Grid is now a real list using `<u
 I inspected the rendered HTML. The structure was much better than the starter’s, where each feature was a `<section>` containing only a paragraph. But on the new pages, whole sentences now render as `<h2>`, because the feature block has no description field and the sample content put everything in the name. A full sentence isn’t a good heading for screen-reader users navigating by headings.
 
 **Verdict:** 
-I asked for descriptions, but the feature block had no description field. The AI didn’t add one, and its reply didn’t mention it. I was still happy with the styling: the contrast work was thorough.
-
+I mentioned descriptions, but the feature block had no description field. The AI didn’t add one, and its reply didn’t mention it. I was still happy with the styling: the contrast work was thorough.
 
 ## What I rewrote by hand, and why
 
@@ -58,17 +57,6 @@ I asked for descriptions, but the feature block had no description field. The AI
 I've done some content changes using the Storyblok Visual Editor to test if editing in Storyblok updates the page. Changes include the Home headline and a feature title.
 
 ### Reviewed code
-I didn’t rewrite any code by hand. I reviewed the semantic HTML and contrast choices and kept them. When I saw paragraphs instead of- eadings, I fixed by prompting rather than editing.
+I didn’t rewrite any code by hand. I reviewed the semantic HTML and contrast choices and kept them. When I saw paragraphs instead of headings, I fixed by prompting rather than editing.
 
-### What I'd do next
-Add a description field to the feature block, so the name stays a short heading and the long sentences move into the description.
-
-Include a navigation and easy "back to home" link.
-
-### Extras done by hand instead of using AI
-These are covered in the README.
-
-* Creating the space
-* Scaffolding with `storyblok create`
-* Fixing the Node version. 
 
